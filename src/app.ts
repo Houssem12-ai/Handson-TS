@@ -54,27 +54,60 @@ console.log(jan(me)); */
 
 import { invoice } from './intefaces/una.js'
 import {person} from './classes/person.js'
+import { ListTemplate } from './classes/Listtemplate.js'
+import { Formatter } from './intefaces/hasFormatter.js'
 
 const form = document.querySelector('.new-item-form') as HTMLFormElement
-
+const ul = document.querySelector('ul')!
 const types = document.querySelector("#type") as HTMLSelectElement
 const tofrom = document.querySelector("#tofrom") as HTMLInputElement
 const details = document.querySelector("#details") as HTMLInputElement
 const amount = document.querySelector("#amount") as HTMLInputElement
-
 //console.log(types)
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+    //if (types.value == 'invoice') {
+    let doc: invoice;
+    let dab: [string, number, string];
+    dab = ['hoss', 21, 'yowyow']
+    doc = new person(...dab);
+        
+    console.log(doc.name);//why the attribute should be in the interface so i can call it ??? else i couldn't call it ????
+    //}
+    const list = new ListTemplate(  ul);
 
-    if (types.value == 'invoice') {
-        let doc: invoice;
-        doc = new person('hoss', 21, 'yowyow');
-        console.log(doc.name);//why the attribute should be in the interface so i can call it ??? else i couldn't call it ????
-    }
+    let brud: [Formatter, string, 'start'|'end'] //'start'|'end' is a type and not only a simple condition !!! 
+    brud = [doc, tofrom.value, 'start']
+    list.render(...brud)
 
-    /* console.log(types.value)
+     console.log(types.value)
     console.log(tofrom.value)
     console.log(details.value)
-    console.log(amount.value) */
+    console.log(amount.value) 
 })
+
+
+//____________________________________________________________________________________________________________________________________________
+/* const addUID = <T extends {name:string}>(obj: T) => {
+    let uid = Math.floor(Math.random() * 10);
+    return {...obj, uid};
+}
+let obj = { name:'houssem',pren:'khi'};
+console.log(addUID(obj))
+ */
+
+enum Resourcetype {BOOK, CAHIER, SOM, BREAK }
+
+interface somethig <T>{
+    name: string;
+    pren: string;
+    age: T;
+}
+
+const config1: somethig <Resourcetype> = {
+    name: 'houssem',
+    pren: 'khi',
+    age: Resourcetype.BOOK
+}
+
